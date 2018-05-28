@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet, WebView, Dimensions } from 'react-native';
-export default class List extends Component {
+export default class Featured extends Component {
   webview = null;
   constructor(props) {
     super(props);
@@ -22,14 +22,12 @@ export default class List extends Component {
     return (
       <View style={Styles.container}>
         {posts.map( ( post, i ) =>
-          <TouchableOpacity style={Styles.list} key={post.id} onPress={() => { this.props.navigation.navigate('Single', { post: post });}}>
-            <View style={Styles.listThumbnail}>
-              <Image style={Styles.listImage}
-                source={{uri:post.better_featured_image.source_url}}
-              />
-            </View>
-            <View style={Styles.listContent}>
-              <Text style={Styles.listTitle}>{post.title.rendered}</Text>
+          <TouchableOpacity style={Styles.item} key={post.id} onPress={() => { this.props.navigation.navigate('Single', { post: post });}}>
+            <Image style={Styles.itemImage}
+              source={{uri:post.better_featured_image.source_url}}
+            />
+            <View style={Styles.itemContent}>
+              <Text style={Styles.itemTitle}>{post.title.rendered}</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -39,31 +37,33 @@ export default class List extends Component {
 }
 const Styles =  StyleSheet.create({
   container: {
-    padding: 20,
-    marginBottom: 62,
+    width: Dimensions.get('window').width,
   },
-  list: {
-    width: Dimensions.get('window').width-40,
-    flexDirection: 'row',
+  item: {
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
-  },
-  listThumbnail: {
-    maxWidth: 100,
-    flex: 1,
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  listImage: {
-    width: 100,
-    height: 100,
-  },
-  listContent: {
-    flex: 1,
+    width: '100%',
     paddingLeft: 20,
+    paddingRight: 20,
   },
-  listTitle: {
+  itemImage: {
+    flex: 1,
+    width: '100%',
+    height: 150,
+    borderRadius: 5,
+  },
+  itemContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  itemTitle: {
+    padding: 5,
+    width: '100%',
     fontSize: 17,
     fontWeight: 'bold',
   },

@@ -3,7 +3,7 @@ import { Platform, Dimensions, StyleSheet, Text, TouchableOpacity, ActivityIndic
 import FeedAPI from '@helpers/Feeds'
 import gs from '@styles/Global'
 import { default as ShowList } from '@components/List'
-import { withNavigation } from 'react-navigation';
+import { default as ShowFeatured } from '@components/Featured'
 export default class Feed extends Component {
   static navigationOptions = {
     headerTitle: 'Diario Tiempo',
@@ -12,12 +12,18 @@ export default class Feed extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      featuredPosts: [],
       posts: [],
       fetching_Status: false,
     };
     this.page = 0
   }
   componentDidMount() {
+    FeedAPI.getPostsByFeatured()
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({ featuredPosts: [ ...this.state.featuredPosts, ...responseJson ], isLoading: false });
+    })
     this.page = this.page + 1;
     FeedAPI.getPosts(this.page)
     .then((response) => response.json())
@@ -35,20 +41,29 @@ export default class Feed extends Component {
       })
     });
   }
+  setFeaturedPosts(data) {
+    this.setState({featuredPosts: data});
+  }
   setPosts(data) {
     this.setState({posts: data});
+  }
+  getFeaturedPosts() {
+    console.log("Get featured posts");
+    return this.state.featuredPosts
   }
   getPosts() {
     console.log("Get posts");
     return this.state.posts
   }
   render() {
+    let featured = this.getFeaturedPosts();
     let posts = this.getPosts();
     return (
-      <ScrollView style={{backgroundColor: '#f1f2f6',}}>
+      <ScrollView style={{backgroundColor: '#ffffff',}}>
         {
-          (this.state.isLoading) ? <ActivityIndicator style={Styles.flexItem} color="#141414" size="large" /> : <ShowList navigation={this.props.navigation} title={ 'Viceversa' } posts={posts} />
+          (this.state.isLoading) ? <ActivityIndicator style={Styles.flexItem} color="#141414" size="large" /> : <ShowFeatured navigation={this.props.navigation} posts={featured} />
         }
+        <ShowList navigation={this.props.navigation} title={ 'Viceversa' } posts={posts} />
         <TouchableOpacity onPress={ this.loadMore} style={{position: 'absolute', bottom: 0, left: 0, right: 0, paddingBottom: 30,}}>
           <Text style={{color: '#141414',textAlign: 'center', fontSize: 40, fontWeight: 'bold',}}>+</Text>
           {

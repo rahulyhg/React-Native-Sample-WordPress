@@ -50,7 +50,7 @@ export default class Category extends Component {
   render() {
     let posts = this.getPosts();
     return (
-      <ScrollView style={{backgroundColor: '#f1f2f6',}}>
+      <ScrollView style={{backgroundColor: '#ffffff',}}>
         {
           (this.state.isLoading) ? <ActivityIndicator style={gs.indicator} color="#141414" size="large" /> : <ShowList navigation={this.props.navigation} title={ 'Viceversa' } posts={posts} />
         }
