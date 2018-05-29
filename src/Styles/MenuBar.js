@@ -10,8 +10,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
   },
   label: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 15,
     letterSpacing: 1,
     textAlign: 'center',
   },

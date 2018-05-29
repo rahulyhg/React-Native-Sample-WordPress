@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Platform, Dimensions, StyleSheet, Text, TouchableOpacity, ActivityIndicator, View, ScrollView } from 'react-native';
+import React, { Component } from 'react'
+import { Platform, Dimensions, StyleSheet, Text, TouchableOpacity, ActivityIndicator, View, ScrollView } from 'react-native'
 import FeedAPI from '@helpers/Feeds'
 import gs from '@styles/Global'
 import { default as ShowList } from '@components/List'
@@ -50,7 +50,7 @@ export default class Category extends Component {
   render() {
     let posts = this.getPosts();
     return (
-      <ScrollView style={{backgroundColor: '#ffffff',}}>
+      <ScrollView style={{backgroundColor: '#ffffff', paddingLeft: 20, paddingRight: 20, paddingBottom: 68,}}>>
         {
           (this.state.isLoading) ? <ActivityIndicator style={gs.indicator} color="#141414" size="large" /> : <ShowList navigation={this.props.navigation} title={ 'Viceversa' } posts={posts} />
         }

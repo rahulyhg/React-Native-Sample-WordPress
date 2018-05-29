@@ -28,7 +28,7 @@ class DrawerComponent extends Component {
   render () {
     let categorias = this.state.categorias;
     return (
-      <ScrollView bounces={false}>
+      <ScrollView style={{backgroundColor: 'fafafa',}}>
         <SafeAreaView style={ds.drawer} forceInset={{ top: 'always', horizontal: 'never' }}>
           {categorias.map( ( categoria, i ) =>
             <TouchableOpacity style={ds.item} key={categoria.id} onPress={() => { this.props.navigation.navigate('Category', { categoria: categoria.id });}}>

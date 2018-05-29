@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Platform, Dimensions, StyleSheet, Text, TouchableOpacity, ActivityIndicator, View, ScrollView } from 'react-native';
+import React, { Component } from 'react'
+import { Platform, Dimensions, StyleSheet, Text, TouchableOpacity, ActivityIndicator, View, ScrollView } from 'react-native'
+import FontAwesome, { Icons } from 'react-native-fontawesome'
 import FeedAPI from '@helpers/Feeds'
 import gs from '@styles/Global'
 import { default as ShowList } from '@components/List'
@@ -59,12 +60,18 @@ export default class Feed extends Component {
     let featured = this.getFeaturedPosts();
     let posts = this.getPosts();
     return (
-      <ScrollView style={{backgroundColor: '#ffffff',}}>
+      <ScrollView style={{backgroundColor: '#ffffff', paddingLeft: 20, paddingRight: 20, paddingBottom: 68,}}>
+        <View style={[Styles.sectionHeader, Styles.noBorder]}>
+          <Text style={Styles.sectionTitle}>Destacado <FontAwesome>{Icons.star}</FontAwesome></Text>
+        </View>
         {
           (this.state.isLoading) ? <ActivityIndicator style={Styles.flexItem} color="#141414" size="large" /> : <ShowFeatured navigation={this.props.navigation} posts={featured} />
         }
+        <View style={Styles.sectionHeader}>
+          <Text style={Styles.sectionTitle}>Recientes <FontAwesome>{Icons.clockO}</FontAwesome></Text>
+        </View>
         <ShowList navigation={this.props.navigation} title={ 'Viceversa' } posts={posts} />
-        <TouchableOpacity onPress={ this.loadMore} style={{position: 'absolute', bottom: 0, left: 0, right: 0, paddingBottom: 30,}}>
+        <TouchableOpacity onPress={ this.loadMore} style={{paddingBottom: 30,}}>
           <Text style={{color: '#141414',textAlign: 'center', fontSize: 40, fontWeight: 'bold',}}>+</Text>
           {
             (this.state.fetching_Status) ? <ActivityIndicator color="#141414" /> : null
@@ -75,16 +82,24 @@ export default class Feed extends Component {
   }
 }
 const Styles = StyleSheet.create({
-  sideMenuContainer: {
-    shadowColor: '#141414',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 20,
-    elevation: 1,
+  sectionHeader: {
+    paddingTop: 15,
+    marginBottom: 20,
+    borderColor: '#dddddd',
+    borderTopWidth: 1,
+  },
+  sectionTitle: {
+    fontSize: 24,
   },
   flexItem: {
     transform: [
       { translateY: Dimensions.get('window').height * 0.4 }
     ],
-  }
+  },
+  noBorder: {
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+  },
 });
