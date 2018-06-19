@@ -25,7 +25,7 @@ const StackNavigation = createStackNavigator(
       initialRouteName: 'HomePage',
       headerMode: 'screen',
       headerStyle: { backgroundColor: '#ffffff', borderBottomWidth: 0, elevation: 0, },
-      headerBackTitle: 'Atras',
+      headerBackTitle: 'Atrás',
       headerRight: <ToggleDrawer navigation={navigation} />
     }),
   }
